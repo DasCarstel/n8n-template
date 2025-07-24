@@ -87,7 +87,18 @@
               "statusValue": "Erledigt"
             },
             {
-              "key": "Ende|rich_text"
+              "key": "Ende|rich_text",
+              "richText": true,
+              "text": {
+                "text": [
+                  {
+                    "textType": "mention",
+                    "mentionType": "date",
+                    "date": "={{ DateTime.now().toISO() }}",
+                    "annotationUi": {}
+                  }
+                ]
+              }
             }
           ]
         },

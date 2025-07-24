@@ -1,0 +1,492 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1,
+                3,
+                5
+              ]
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        -60
+      ],
+      "id": "a1a5718b-d0eb-4694-970e-26bc4fbec60a",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1100,
+        -60
+      ],
+      "id": "b698d09a-5e3a-403a-8dc4-f8884e8aa814",
+      "name": "Wait",
+      "webhookId": "727450d8-695b-4f19-b44a-957dcaebb53a"
+    },
+    {
+      "parameters": {
+        "taskListId": "AQMkADAwATNiZmYAZC1kMDdlLWJlNTUALTAwAi0wMAoALgAAA0NBTV_kcORJmRRxtbvDOJcBAMBDwfn7zzlMnT3h4rQWfqcAB1SpwJ0AAAA=",
+        "taskId": "={{ $('Microsoft To Do').item.json.id }}"
+      },
+      "type": "n8n-nodes-base.microsoftToDo",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        -135
+      ],
+      "id": "78ac96f7-bb4f-422c-a086-b638fa61b17f",
+      "name": "Get Microsoft Task",
+      "executeOnce": false,
+      "retryOnFail": true,
+      "credentials": {
+        "microsoftToDoOAuth2Api": {
+          "id": "sB3uZnPV7ZxNR2BQ",
+          "name": "Microsoft To Do OAuth"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "value": "={{ $('Notion').item.json.id }}",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Status|status",
+              "statusValue": "Erledigt"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        1980,
+        40
+      ],
+      "id": "f193ab3e-e906-4419-beb5-c3d074c8dceb",
+      "name": "Mark Notion as done",
+      "credentials": {
+        "notionApi": {
+          "id": "fr2e2KycGHqXc0xM",
+          "name": "Carsten Notion"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "taskListId": "AQMkADAwATNiZmYAZC1kMDdlLWJlNTUALTAwAi0wMAoALgAAA0NBTV_kcORJmRRxtbvDOJcBAMBDwfn7zzlMnT3h4rQWfqcAB1SpwJ0AAAA=",
+        "taskId": "={{ $('Microsoft To Do').item.json.id }}",
+        "updateFields": {
+          "status": "completed"
+        }
+      },
+      "type": "n8n-nodes-base.microsoftToDo",
+      "typeVersion": 1,
+      "position": [
+        1980,
+        -160
+      ],
+      "id": "2a85bfcb-1646-4192-9278-dee2cb4767f4",
+      "name": "Mark Microsoft Task as done",
+      "credentials": {
+        "microsoftToDoOAuth2Api": {
+          "id": "sB3uZnPV7ZxNR2BQ",
+          "name": "Microsoft To Do OAuth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ ($('Get Notion Task').item.json.property_status.includes(\"Erledigt\")? true : false) && ($('Get Microsoft Task').item.json.status.includes(\"notStarted\")? true : false) }}",
+                    "rightValue": true,
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "equals"
+                    },
+                    "id": "aa563fee-91f8-4b47-8292-61d3cad91ee8"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d0b7583e-ba93-4033-baf2-7b9ff7cbbd2d",
+                    "leftValue": "={{($('Get Notion Task').item.json.property_status.includes(\"Nicht begonnen\")? true : false) && ($('Get Microsoft Task').item.json.status.includes(\"completed\")? true : false) }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "4e4058b2-c337-4f59-ba6a-0dbdb71532ac",
+                    "leftValue": "={{ ($('Get Notion Task').item.json.property_status.includes(\"Nicht begonnen\")? true : false) && ($('Get Microsoft Task').item.json.status.includes(\"notStarted\")? true : false) }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1760,
+        -60
+      ],
+      "id": "5e77bf22-6962-4490-b51b-4725c96386a4",
+      "name": "Switch",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "resume": "specificTime",
+        "dateTime": "={{ DateTime.now().plus(7, 'days').format(\"yyyy-MM-dd'T'HH:mm:ss\") }}"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        -60
+      ],
+      "id": "f2902238-0332-426c-a3d5-64bf63e89c05",
+      "name": "Wait1",
+      "webhookId": "5f506653-2e0d-4bb8-a156-405c5e11d198"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e168c13b-24b3-4d0e-ada2-c891cf76f850",
+              "name": "Uhrzeit",
+              "value": 19,
+              "type": "number"
+            },
+            {
+              "id": "cfdacdc3-673a-4d86-8717-2fa367072832",
+              "name": "Emoji",
+              "value": "🚲",
+              "type": "string"
+            },
+            {
+              "id": "415e7e76-c828-4d34-9a5d-ea972ddca28c",
+              "name": "Name",
+              "value": "Sport",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        -60
+      ],
+      "id": "32b2be73-f738-4c2d-9378-9118d29a7982",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "get",
+        "pageId": {
+          "__rl": true,
+          "value": "={{ $('Notion').item.json.id }}",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        1320,
+        -135
+      ],
+      "id": "3c20d71b-d38a-4b17-859e-ce6397f379bc",
+      "name": "Get Notion Task",
+      "executeOnce": false,
+      "retryOnFail": true,
+      "credentials": {
+        "notionApi": {
+          "id": "fr2e2KycGHqXc0xM",
+          "name": "Carsten Notion"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "16f9584c-b1d7-8066-81f8-e5d739550770",
+          "mode": "list",
+          "cachedResultName": "Mein Routinen Kalender",
+          "cachedResultUrl": "https://www.notion.so/16f9584cb1d7806681f8e5d739550770"
+        },
+        "title": "={{ $('Edit Fields').item.json.Name }}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Datum|date",
+              "range": true,
+              "dateStart": "={{ $('Schedule Trigger').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours') }}",
+              "dateEnd": "={{ $('Schedule Trigger').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').plus(30, 'minutes') }}"
+            },
+            {
+              "key": "Kategorie|select",
+              "selectValue": "Persönlich"
+            }
+          ]
+        },
+        "options": {
+          "icon": "={{ $('Edit Fields').item.json.Emoji }}"
+        }
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        -60
+      ],
+      "id": "07057775-f8c6-4e04-87a1-128ec5d481d1",
+      "name": "Notion",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "maxTries": 5,
+      "credentials": {
+        "notionApi": {
+          "id": "fr2e2KycGHqXc0xM",
+          "name": "Carsten Notion"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "taskListId": "AQMkADAwATNiZmYAZC1kMDdlLWJlNTUALTAwAi0wMAoALgAAA0NBTV_kcORJmRRxtbvDOJcBAMBDwfn7zzlMnT3h4rQWfqcAB1SpwJ0AAAA=",
+        "title": "={{ $('Edit Fields').item.json.Emoji + \" \" + $('Edit Fields').item.json.Name }}",
+        "additionalFields": {
+          "dueDateTime": "={{ $('Schedule Trigger').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').toISO() }}",
+          "reminderDateTime": "={{ $('Schedule Trigger').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').minus(30, \"minutes\").toISO() }}"
+        }
+      },
+      "type": "n8n-nodes-base.microsoftToDo",
+      "typeVersion": 1,
+      "position": [
+        880,
+        -60
+      ],
+      "id": "f216fd45-1e3a-4c8d-b523-a9d0cb16a1c8",
+      "name": "Microsoft To Do",
+      "executeOnce": true,
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftToDoOAuth2Api": {
+          "id": "sB3uZnPV7ZxNR2BQ",
+          "name": "Microsoft To Do OAuth"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get Notion Task",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Microsoft Task": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Notion as done": {
+      "main": [
+        []
+      ]
+    },
+    "Mark Microsoft Task as done": {
+      "main": [
+        []
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Mark Microsoft Task as done",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Notion as done",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Microsoft To Do",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Notion Task": {
+      "main": [
+        [
+          {
+            "node": "Get Microsoft Task",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft To Do": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "476ae8e51b27fe606290128bd23eca42905d58a3958a72a03750be836d971df8"
+  }
+}

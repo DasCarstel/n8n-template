@@ -22,7 +22,7 @@
         -60
       ],
       "id": "a1a5718b-d0eb-4694-970e-26bc4fbec60a",
-      "name": "Schedule Trigger"
+      "name": "⏰ Schedule Trigger - Configure Days & Time"
     },
     {
       "parameters": {
@@ -35,7 +35,7 @@
         -60
       ],
       "id": "b698d09a-5e3a-403a-8dc4-f8884e8aa814",
-      "name": "Wait",
+      "name": "⏱️ Wait for Task Completion Check",
       "webhookId": "727450d8-695b-4f19-b44a-957dcaebb53a"
     },
     {
@@ -50,7 +50,7 @@
         -135
       ],
       "id": "78ac96f7-bb4f-422c-a086-b638fa61b17f",
-      "name": "Get Microsoft Task",
+      "name": "📋 Get Microsoft Task Status",
       "executeOnce": false,
       "retryOnFail": true,
       "credentials": {
@@ -87,7 +87,7 @@
         40
       ],
       "id": "f193ab3e-e906-4419-beb5-c3d074c8dceb",
-      "name": "Mark Notion as done",
+      "name": "✅ Mark Notion Task as Completed",
       "credentials": {
         "notionApi": {
           "id": "fr2e2KycGHqXc0xM",
@@ -111,7 +111,7 @@
         -160
       ],
       "id": "2a85bfcb-1646-4192-9278-dee2cb4767f4",
-      "name": "Mark Microsoft Task as done",
+      "name": "✅ Mark Microsoft Task as Completed",
       "credentials": {
         "microsoftToDoOAuth2Api": {
           "id": "sB3uZnPV7ZxNR2BQ",
@@ -202,7 +202,7 @@
         -60
       ],
       "id": "5e77bf22-6962-4490-b51b-4725c96386a4",
-      "name": "Switch",
+      "name": "🔀 Task Status Synchronization Logic",
       "retryOnFail": true
     },
     {
@@ -217,7 +217,7 @@
         -60
       ],
       "id": "f2902238-0332-426c-a3d5-64bf63e89c05",
-      "name": "Wait1",
+      "name": "⏳ Wait 7 Days Before Creating Tasks",
       "webhookId": "5f506653-2e0d-4bb8-a156-405c5e11d198"
     },
     {
@@ -253,7 +253,7 @@
         -60
       ],
       "id": "32b2be73-f738-4c2d-9378-9118d29a7982",
-      "name": "Edit Fields"
+      "name": "⚙️ Configure Task Details (Time, Emoji, Name)"
     },
     {
       "parameters": {
@@ -272,7 +272,7 @@
         -135
       ],
       "id": "3c20d71b-d38a-4b17-859e-ce6397f379bc",
-      "name": "Get Notion Task",
+      "name": "📖 Get Notion Task Status",
       "executeOnce": false,
       "retryOnFail": true,
       "credentials": {
@@ -318,7 +318,7 @@
         -60
       ],
       "id": "07057775-f8c6-4e04-87a1-128ec5d481d1",
-      "name": "Notion",
+      "name": "📝 Create Notion Task",
       "retryOnFail": true,
       "waitBetweenTries": 5000,
       "maxTries": 5,
@@ -346,7 +346,7 @@
         -60
       ],
       "id": "f216fd45-1e3a-4c8d-b523-a9d0cb16a1c8",
-      "name": "Microsoft To Do",
+      "name": "📋 Create Microsoft ToDo Task",
       "executeOnce": true,
       "retryOnFail": true,
       "maxTries": 5,
@@ -360,123 +360,123 @@
     }
   ],
   "connections": {
-    "Schedule Trigger": {
+    "⏰ Schedule Trigger - Configure Days & Time": {
       "main": [
         [
           {
-            "node": "Edit Fields",
+            "node": "⚙️ Configure Task Details (Time, Emoji, Name)",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Wait": {
+    "⏱️ Wait for Task Completion Check": {
       "main": [
         [
           {
-            "node": "Get Notion Task",
+            "node": "📖 Get Notion Task Status",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Get Microsoft Task": {
+    "📋 Get Microsoft Task Status": {
       "main": [
         [
           {
-            "node": "Switch",
+            "node": "🔀 Task Status Synchronization Logic",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Mark Notion as done": {
+    "✅ Mark Notion Task as Completed": {
       "main": [
         []
       ]
     },
-    "Mark Microsoft Task as done": {
+    "✅ Mark Microsoft Task as Completed": {
       "main": [
         []
       ]
     },
-    "Switch": {
+    "🔀 Task Status Synchronization Logic": {
       "main": [
         [
           {
-            "node": "Mark Microsoft Task as done",
+            "node": "✅ Mark Microsoft Task as Completed",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Mark Notion as done",
+            "node": "✅ Mark Notion Task as Completed",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Wait",
+            "node": "⏱️ Wait for Task Completion Check",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Wait1": {
+    "⏳ Wait 7 Days Before Creating Tasks": {
       "main": [
         [
           {
-            "node": "Microsoft To Do",
+            "node": "📋 Create Microsoft ToDo Task",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Edit Fields": {
+    "⚙️ Configure Task Details (Time, Emoji, Name)": {
       "main": [
         [
           {
-            "node": "Notion",
+            "node": "📝 Create Notion Task",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Get Notion Task": {
+    "📖 Get Notion Task Status": {
       "main": [
         [
           {
-            "node": "Get Microsoft Task",
+            "node": "📋 Get Microsoft Task Status",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Notion": {
+    "📝 Create Notion Task": {
       "main": [
         [
           {
-            "node": "Wait1",
+            "node": "⏳ Wait 7 Days Before Creating Tasks",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Microsoft To Do": {
+    "📋 Create Microsoft ToDo Task": {
       "main": [
         [
           {
-            "node": "Wait",
+            "node": "⏱️ Wait for Task Completion Check",
             "type": "main",
             "index": 0
           }

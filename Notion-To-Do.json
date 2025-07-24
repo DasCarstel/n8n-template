@@ -49,7 +49,7 @@
     {
       "parameters": {
         "taskListId": "AQMkADAwATNiZmYAZC1kMDdlLWJlNTUALTAwAi0wMAoALgAAA0NBTV_kcORJmRRxtbvDOJcBAMBDwfn7zzlMnT3h4rQWfqcAB1SpwJ0AAAA=",
-        "taskId": "={{ $('Microsoft To Do').item.json.id }}"
+        "taskId": "={{ $('📋 Create Microsoft ToDo Task').item.json.id }}"
       },
       "type": "n8n-nodes-base.microsoftToDo",
       "typeVersion": 1,
@@ -77,7 +77,7 @@
         "operation": "update",
         "pageId": {
           "__rl": true,
-          "value": "={{ $('Notion').item.json.id }}",
+          "value": "={{ $('📝 Create Notion Task').item.json.id }}",
           "mode": "id"
         },
         "propertiesUi": {
@@ -85,6 +85,10 @@
             {
               "key": "Status|status",
               "statusValue": "Erledigt"
+            },
+            {
+              "key": "Ende|date",
+              "dateValue": "={{ DateTime.now().toISO() }}"
             }
           ]
         },
@@ -113,7 +117,7 @@
       "parameters": {
         "operation": "update",
         "taskListId": "AQMkADAwATNiZmYAZC1kMDdlLWJlNTUALTAwAi0wMAoALgAAA0NBTV_kcORJmRRxtbvDOJcBAMBDwfn7zzlMnT3h4rQWfqcAB1SpwJ0AAAA=",
-        "taskId": "={{ $('Microsoft To Do').item.json.id }}",
+        "taskId": "={{ $('📋 Create Microsoft ToDo Task').item.json.id }}",
         "updateFields": {
           "status": "completed"
         }
@@ -151,7 +155,7 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ ($('Get Notion Task').item.json.property_status.includes(\"Erledigt\")? true : false) && ($('Get Microsoft Task').item.json.status.includes(\"notStarted\")? true : false) }}",
+                    "leftValue": "={{ ($('📖 Get Notion Task Status').item.json.property_status.includes(\"Erledigt\")? true : false) && ($('📋 Get Microsoft Task Status').item.json.status.includes(\"notStarted\")? true : false) }}",
                     "rightValue": true,
                     "operator": {
                       "type": "boolean",
@@ -174,7 +178,7 @@
                 "conditions": [
                   {
                     "id": "d0b7583e-ba93-4033-baf2-7b9ff7cbbd2d",
-                    "leftValue": "={{($('Get Notion Task').item.json.property_status.includes(\"Nicht begonnen\")? true : false) && ($('Get Microsoft Task').item.json.status.includes(\"completed\")? true : false) }}",
+                    "leftValue": "={{($('📖 Get Notion Task Status').item.json.property_status.includes(\"Nicht begonnen\")? true : false) && ($('📋 Get Microsoft Task Status').item.json.status.includes(\"completed\")? true : false) }}",
                     "rightValue": "",
                     "operator": {
                       "type": "boolean",
@@ -197,7 +201,7 @@
                 "conditions": [
                   {
                     "id": "4e4058b2-c337-4f59-ba6a-0dbdb71532ac",
-                    "leftValue": "={{ ($('Get Notion Task').item.json.property_status.includes(\"Nicht begonnen\")? true : false) && ($('Get Microsoft Task').item.json.status.includes(\"notStarted\")? true : false) }}",
+                    "leftValue": "={{ ($('📖 Get Notion Task Status').item.json.property_status.includes(\"Nicht begonnen\")? true : false) && ($('📋 Get Microsoft Task Status').item.json.status.includes(\"notStarted\")? true : false) }}",
                     "rightValue": "",
                     "operator": {
                       "type": "boolean",
@@ -290,7 +294,7 @@
         "operation": "get",
         "pageId": {
           "__rl": true,
-          "value": "={{ $('Notion').item.json.id }}",
+          "value": "={{ $('📝 Create Notion Task').item.json.id }}",
           "mode": "id"
         }
       },
@@ -324,14 +328,14 @@
           "cachedResultName": "Mein Routinen Kalender",
           "cachedResultUrl": "https://www.notion.so/16f9584cb1d7806681f8e5d739550770"
         },
-        "title": "={{ $('Edit Fields').item.json.Name }}",
+        "title": "={{ $('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Name }}",
         "propertiesUi": {
           "propertyValues": [
             {
               "key": "Datum|date",
               "range": true,
-              "dateStart": "={{ $('Schedule Trigger').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours') }}",
-              "dateEnd": "={{ $('Schedule Trigger').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').plus(30, 'minutes') }}"
+              "dateStart": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours') }}",
+              "dateEnd": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').plus(30, 'minutes') }}"
             },
             {
               "key": "Kategorie|select",
@@ -340,7 +344,7 @@
           ]
         },
         "options": {
-          "icon": "={{ $('Edit Fields').item.json.Emoji }}"
+          "icon": "={{ $('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Emoji }}"
         }
       },
       "type": "n8n-nodes-base.notion",
@@ -366,10 +370,10 @@
       "parameters": {
         "operation": "create",
         "taskListId": "AQMkADAwATNiZmYAZC1kMDdlLWJlNTUALTAwAi0wMAoALgAAA0NBTV_kcORJmRRxtbvDOJcBAMBDwfn7zzlMnT3h4rQWfqcAB1SpwJ0AAAA=",
-        "title": "={{ $('Edit Fields').item.json.Emoji + \" \" + $('Edit Fields').item.json.Name }}",
+        "title": "={{ $('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Emoji + \" \" + $('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Name }}",
         "additionalFields": {
-          "dueDateTime": "={{ $('Schedule Trigger').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').toISO() }}",
-          "reminderDateTime": "={{ $('Schedule Trigger').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').minus(30, \"minutes\").toISO() }}"
+          "dueDateTime": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').toISO() }}",
+          "reminderDateTime": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').minus(30, \"minutes\").toISO() }}"
         }
       },
       "type": "n8n-nodes-base.microsoftToDo",

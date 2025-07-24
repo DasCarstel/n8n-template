@@ -22,7 +22,11 @@
         -60
       ],
       "id": "a1a5718b-d0eb-4694-970e-26bc4fbec60a",
-      "name": "⏰ Schedule Trigger - Configure Days & Time"
+      "name": "⏰ Schedule Trigger - Configure Days & Time",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -36,6 +40,10 @@
       ],
       "id": "b698d09a-5e3a-403a-8dc4-f8884e8aa814",
       "name": "⏱️ Wait for Task Completion Check",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput",
       "webhookId": "727450d8-695b-4f19-b44a-957dcaebb53a"
     },
     {
@@ -53,6 +61,8 @@
       "name": "📋 Get Microsoft Task Status",
       "executeOnce": false,
       "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
       "credentials": {
         "microsoftToDoOAuth2Api": {
           "id": "sB3uZnPV7ZxNR2BQ",
@@ -88,6 +98,10 @@
       ],
       "id": "f193ab3e-e906-4419-beb5-c3d074c8dceb",
       "name": "✅ Mark Notion Task as Completed",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput",
       "credentials": {
         "notionApi": {
           "id": "fr2e2KycGHqXc0xM",
@@ -112,6 +126,10 @@
       ],
       "id": "2a85bfcb-1646-4192-9278-dee2cb4767f4",
       "name": "✅ Mark Microsoft Task as Completed",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput",
       "credentials": {
         "microsoftToDoOAuth2Api": {
           "id": "sB3uZnPV7ZxNR2BQ",
@@ -203,7 +221,10 @@
       ],
       "id": "5e77bf22-6962-4490-b51b-4725c96386a4",
       "name": "🔀 Task Status Synchronization Logic",
-      "retryOnFail": true
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -218,6 +239,10 @@
       ],
       "id": "f2902238-0332-426c-a3d5-64bf63e89c05",
       "name": "⏳ Wait 7 Days Before Creating Tasks",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput",
       "webhookId": "5f506653-2e0d-4bb8-a156-405c5e11d198"
     },
     {
@@ -253,7 +278,11 @@
         -60
       ],
       "id": "32b2be73-f738-4c2d-9378-9118d29a7982",
-      "name": "⚙️ Configure Task Details (Time, Emoji, Name)"
+      "name": "⚙️ Configure Task Details (Time, Emoji, Name)",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -275,6 +304,9 @@
       "name": "📖 Get Notion Task Status",
       "executeOnce": false,
       "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput",
       "credentials": {
         "notionApi": {
           "id": "fr2e2KycGHqXc0xM",
@@ -322,6 +354,7 @@
       "retryOnFail": true,
       "waitBetweenTries": 5000,
       "maxTries": 5,
+      "onError": "continueRegularOutput",
       "credentials": {
         "notionApi": {
           "id": "fr2e2KycGHqXc0xM",
@@ -351,6 +384,7 @@
       "retryOnFail": true,
       "maxTries": 5,
       "waitBetweenTries": 5000,
+      "onError": "continueRegularOutput",
       "credentials": {
         "microsoftToDoOAuth2Api": {
           "id": "sB3uZnPV7ZxNR2BQ",

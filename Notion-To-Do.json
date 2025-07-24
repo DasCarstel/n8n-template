@@ -87,7 +87,7 @@
               "statusValue": "Erledigt"
             },
             {
-              "key": "Ende|date",
+              "key": "={{ $('⚙️ Configure Task Details (Time, Emoji, Name, End Field)').item.json.EndeFeldname }}|date",
               "dateValue": "={{ DateTime.now().toISO() }}"
             }
           ]
@@ -270,6 +270,12 @@
               "name": "Name",
               "value": "Sport",
               "type": "string"
+            },
+            {
+              "id": "a7f8e92d-3c5b-4d6e-9f2a-8b1c7e4d5f6g",
+              "name": "EndeFeldname",
+              "value": "Ende",
+              "type": "string"
             }
           ]
         },
@@ -282,7 +288,7 @@
         -60
       ],
       "id": "32b2be73-f738-4c2d-9378-9118d29a7982",
-      "name": "⚙️ Configure Task Details (Time, Emoji, Name)",
+      "name": "⚙️ Configure Task Details (Time, Emoji, Name, End Field)",
       "retryOnFail": true,
       "maxTries": 3,
       "waitBetweenTries": 2000,
@@ -328,7 +334,7 @@
           "cachedResultName": "Mein Routinen Kalender",
           "cachedResultUrl": "https://www.notion.so/16f9584cb1d7806681f8e5d739550770"
         },
-        "title": "={{ $('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Name }}",
+        "title": "={{ $('⚙️ Configure Task Details (Time, Emoji, Name, End Field)').item.json.Name }}",
         "propertiesUi": {
           "propertyValues": [
             {
@@ -344,7 +350,7 @@
           ]
         },
         "options": {
-          "icon": "={{ $('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Emoji }}"
+          "icon": "={{ $('⚙️ Configure Task Details (Time, Emoji, Name, End Field)').item.json.Emoji }}"
         }
       },
       "type": "n8n-nodes-base.notion",
@@ -370,7 +376,7 @@
       "parameters": {
         "operation": "create",
         "taskListId": "AQMkADAwATNiZmYAZC1kMDdlLWJlNTUALTAwAi0wMAoALgAAA0NBTV_kcORJmRRxtbvDOJcBAMBDwfn7zzlMnT3h4rQWfqcAB1SpwJ0AAAA=",
-        "title": "={{ $('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Emoji + \" \" + $('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Name }}",
+        "title": "={{ $('⚙️ Configure Task Details (Time, Emoji, Name, End Field)').item.json.Emoji + \" \" + $('⚙️ Configure Task Details (Time, Emoji, Name, End Field)').item.json.Name }}",
         "additionalFields": {
           "dueDateTime": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').toISO() }}",
           "reminderDateTime": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').minus(30, \"minutes\").toISO() }}"
@@ -402,7 +408,7 @@
       "main": [
         [
           {
-            "node": "⚙️ Configure Task Details (Time, Emoji, Name)",
+            "node": "⚙️ Configure Task Details (Time, Emoji, Name, End Field)",
             "type": "main",
             "index": 0
           }
@@ -477,7 +483,7 @@
         ]
       ]
     },
-    "⚙️ Configure Task Details (Time, Emoji, Name)": {
+    "⚙️ Configure Task Details (Time, Emoji, Name, End Field)": {
       "main": [
         [
           {

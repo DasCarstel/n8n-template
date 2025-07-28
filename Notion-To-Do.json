@@ -344,8 +344,8 @@
             {
               "key": "Datum|date",
               "range": true,
-              "dateStart": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours') }}",
-              "dateEnd": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').plus(30, 'minutes') }}"
+              "dateStart": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Uhrzeit, 'hours') }}",
+              "dateEnd": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Uhrzeit, 'hours').plus(30, 'minutes') }}"
             },
             {
               "key": "Kategorie|select",
@@ -382,8 +382,8 @@
         "taskListId": "AQMkADAwATNiZmYAZC1kMDdlLWJlNTUALTAwAi0wMAoALgAAA0NBTV_kcORJmRRxtbvDOJcBAMBDwfn7zzlMnT3h4rQWfqcAB1SpwJ0AAAA=",
         "title": "={{ $('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Emoji + \" \" + $('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Name }}",
         "additionalFields": {
-          "dueDateTime": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').toISO() }}",
-          "reminderDateTime": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($json.Uhrzeit, 'hours').minus(30, \"minutes\").toISO() }}"
+          "dueDateTime": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Uhrzeit, 'hours').toISO() }}",
+          "reminderDateTime": "={{ $('⏰ Schedule Trigger - Configure Days & Time').item.json.timestamp.toDateTime().plus(7, 'days').plus($('⚙️ Configure Task Details (Time, Emoji, Name)').item.json.Uhrzeit, 'hours').minus(30, \"minutes\").toISO() }}"
         }
       },
       "type": "n8n-nodes-base.microsoftToDo",
